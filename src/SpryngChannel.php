@@ -2,10 +2,10 @@
 
 namespace NotificationChannels\Spryng;
 
-use Spryng\SpryngRestApi\Spryng;
-use Spryng\SpryngRestApi\Objects\Message;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Spryng\Exceptions\CouldNotSendNotification;
+use Spryng\SpryngRestApi\Spryng;
+use Spryng\SpryngRestApi\Objects\Message;
 
 class SpryngChannel
 {
@@ -18,8 +18,8 @@ class SpryngChannel
     /**
      * Send the given notification.
      *
-     * @param mixed $notifiable
-     * @param \Illuminate\Notifications\Notification $notification
+     * @param   mixed $notifiable
+     * @param   \Illuminate\Notifications\Notification $notification
      *
      * @throws \NotificationChannels\Spryng\Exceptions\CouldNotSendNotification
      */
@@ -27,7 +27,7 @@ class SpryngChannel
     {
         $to = $notifiable->phone;
 
-        if (!$to) {
+        if (! $to) {
             return;
         }
 

@@ -2,9 +2,9 @@
 
 namespace NotificationChannels\Spryng;
 
-use Spryng\SpryngRestApi\Spryng;
 use Illuminate\Support\ServiceProvider;
 use NotificationChannels\Spryng\SpryngChannel;
+use Spryng\SpryngRestApi\Spryng;
 
 class SpryngServiceProvider extends ServiceProvider
 {

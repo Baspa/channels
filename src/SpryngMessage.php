@@ -8,10 +8,10 @@ class SpryngMessage
 
     public string $originator;
 
-    public array $recipients; 
+    public array $recipients;
 
     public function __construct(
-        string $body = '', 
+        string $body = '',
         string $originator = '',
         array $recipients = []
      ) {
@@ -37,7 +37,8 @@ class SpryngMessage
     public function setRecipients(array|string $recipients): self
     {
         $this->recipients = is_array($recipients) ? $recipients : [$recipients];
-    
+
         return $this;
     }
+    
 }

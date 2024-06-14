@@ -4,8 +4,8 @@ namespace NotificationChannels\Spryng;
 
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Spryng\Exceptions\CouldNotSendNotification;
-use Spryng\SpryngRestApi\Spryng;
 use Spryng\SpryngRestApi\Objects\Message;
+use Spryng\SpryngRestApi\Spryng;
 
 class SpryngChannel
 {
@@ -18,8 +18,8 @@ class SpryngChannel
     /**
      * Send the given notification.
      *
-     * @param   mixed $notifiable
-     * @param   \Illuminate\Notifications\Notification $notification
+     * @param  mixed $notifiable
+     * @param  \Illuminate\Notifications\Notification $notification
      *
      * @throws \NotificationChannels\Spryng\Exceptions\CouldNotSendNotification
      */
@@ -37,7 +37,7 @@ class SpryngChannel
 
         $response = $this->spryng->message->create($message);
 
-        if (!$response || $response->serverError()) {
+        if (! $response || $response->serverError()) {
             throw new CouldNotSendNotification(
                 message: 'Message could not be send because of a server error...',
                 code: $response->getResponseCode()

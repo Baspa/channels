@@ -40,5 +40,5 @@ class SpryngMessage
 
         return $this;
     }
-    
+
 }

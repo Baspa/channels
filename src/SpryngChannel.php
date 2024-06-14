@@ -3,6 +3,7 @@
 namespace NotificationChannels\Spryng;
 
 use Spryng\SpryngRestApi\Spryng;
+use Spryng\SpryngRestApi\Objects\Message;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Spryng\Exceptions\CouldNotSendNotification;
 
@@ -32,6 +33,8 @@ class SpryngChannel
 
         $message = $notification->toSpryng($notifiable);
 
+        $message = $this->createMessage($message);
+
         $response = $this->spryng->message->create($message);
 
         if (!$response || $response->serverError()) {
@@ -40,5 +43,16 @@ class SpryngChannel
                 code: $response->getResponseCode()
             );
         }
+    }
+
+    private function createMessage(SpryngMessage $message): Message
+    {
+        $spryngMessage = new Message();
+
+        $spryngMessage->setBody($message->body);
+        $spryngMessage->setRecipients($message->recipients);
+        $spryngMessage->setOriginator($message->originator);
+
+        return $spryngMessage;
     }
 }

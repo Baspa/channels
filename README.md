@@ -64,8 +64,8 @@ class AccountApproved extends Notification
     public function toSpryng($notifiable)
     {
         return (new SpryngMessage)
-			->setBody("Task #{$notifiable->id} is complete!");
-			->setRecipients($notifiable->phone_number);
+			->setBody("Task #{$notifiable->id} is complete!")
+			->setRecipients($notifiable->phone_number)
 			->setOriginator(config('app.name'));
     }
 }

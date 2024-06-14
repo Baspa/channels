@@ -19,7 +19,7 @@ class SpryngChannel
      * Send the given notification.
      *
      * @param  mixed $notifiable
-     * @param  \Illuminate\Notifications\Notification $notification
+     * @param  \Illuminate\Notifications\Notification  $notification
      *
      * @throws \NotificationChannels\Spryng\Exceptions\CouldNotSendNotification
      */

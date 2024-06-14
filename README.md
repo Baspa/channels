@@ -35,7 +35,7 @@ Add the configuration to your `services.php` config file:
 
 ```php
 'spryng' => [
-	'key' => env('SPRYNG_API_KEY'),
+    'key' => env('SPRYNG_API_KEY'),
 ]
 ```
 

@@ -1,29 +1,20 @@
-Please see [this repo](https://github.com/laravel-notification-channels/channels) for instructions on how to submit a channel proposal.
+# Spryng Notification Channel
 
-# A Boilerplate repo for contributions
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/spryng.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/spryng)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/:package_name)
+[![Build Status](https://img.shields.io/travis/laravel-notification-channels/spryng/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/spryng)
 [![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/:package_name.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
+[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/spryng.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/spryng)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/spryng/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/spryng/?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/spryng.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/spryng)
 
-This package makes it easy to send notifications using [:service_name](link to service) with Laravel 10.x.
-
-**Note:** Replace ```:channel_namespace``` ```:service_name``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
-**Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
-
-This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
-
-
+📲  [Spryng](https://www.spryng.nl/en/) Notifications Channel for Laravel
 
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the :service_name service](#setting-up-the-:service_name-service)
+	- [Setting up the Spryng service](#setting-up-the-Spryng-service)
 - [Usage](#usage)
 	- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
@@ -36,19 +27,57 @@ This is where your description should go. Add a little code example so build can
 
 ## Installation
 
-Please also include the steps for any third-party service setup that's required for this package.
+```bash
+composer require laravel-notification-channels/spryng
+```
 
-### Setting up the :service_name service
+Add the configuration to your `services.php` config file:
 
-Optionally include a few steps how users can set up the service.
+```php
+'spryng' => [
+	'key' => env('SPRYNG_API_KEY'),
+]
+```
+
+### Setting up the Spryng service
+
+You'll need a Spryng account. Head over to their [website](https://www.spryng.nl/en/) and create or login to your account.
+
+Head to your `Profile` and then `Security` in the sidebar to generate a set of API keys.
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+You can use the channel in your `via()` method inside the notification:
+
+```php
+use Illuminate\Notifications\Notification;
+use \NotificationChannels\Spryng\SpryngMessage;
+use \NotificationChannels\Spryng\SpryngChannel;
+
+class AccountApproved extends Notification
+{
+    public function via($notifiable)
+    {
+        return [SpryngChannel::class];
+    }
+
+    public function toSpryng($notifiable)
+    {
+        return (new SpryngMessage)
+			->setBody("Task #{$notifiable->id} is complete!");
+			->setRecipients($notifiable->phone_number);
+			->setOriginator(config('app.name'));
+    }
+}
+```
+
+Make sure your Notifiable model has a `phone_number` attribute, which will be used to send the SMS. Also make sure it's a valid phone number.
 
 ### Available Message methods
 
-A list of all available options
+- `setBody('')`: Accepts a string value for the message body.
+- `setRecipients('')`: Accepts a string or array value for the recipient(s) phone number.
+- `setOriginator('')`: Accepts a string value for the sender name.
 
 ## Changelog
 
@@ -62,7 +91,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+If you discover any security related issues, please email hello@baspa.dev instead of using the issue tracker.
 
 ## Contributing
 
@@ -70,7 +99,8 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Bas van Dinther](https://github.com/Baspa)
+- [Spryng](https://www.spryng.nl/en/)
 - [All Contributors](../../contributors)
 
 ## License

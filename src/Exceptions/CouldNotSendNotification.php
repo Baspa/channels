@@ -1,11 +1,7 @@
 <?php
 
-namespace NotificationChannels\:channel_namespace\Exceptions;
+namespace NotificationChannels\Spryng\Exceptions;
 
 class CouldNotSendNotification extends \Exception
 {
-    public static function serviceRespondedWithAnError($response)
-    {
-        return new static("Descriptive error message.");
-    }
 }
